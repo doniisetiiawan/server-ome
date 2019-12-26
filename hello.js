@@ -1,5 +1,4 @@
-const message = 'Hello';
-
-exports.sayHello = () => {
+module.exports = () => {
+  const message = 'Hello';
   console.log(message);
 };
