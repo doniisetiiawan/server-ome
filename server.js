@@ -1,25 +1,12 @@
-const connect = require('connect');
+const express = require('express');
 
-const app = connect();
+const app = express();
 
-const logger = (req, res, next) => {
-  console.log(req.method, req.url);
-  next();
-};
-
-const helloWorld = (req, res) => {
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
-};
-
-const goodbyeWorld = (req, res) => {
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Goodbye World');
-};
-
-app.use(logger);
-app.use('/hello', helloWorld);
-app.use('/goodbye', goodbyeWorld);
+app.use('/', (req, res) => {
+  res.status(200).send('Hello World');
+});
 
 app.listen(3000);
 console.log('Server running at http://localhost:3000/');
+
+module.exports = app;
