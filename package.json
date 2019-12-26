@@ -1,0 +1,21 @@
+{
+  "name": "server-ome",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "MongoDB",
+    "Express",
+    "Node.js"
+  ],
+  "author": "Doni Setiawan <donisetiawan.050@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "1.19.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
