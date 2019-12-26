@@ -1,12 +1,7 @@
-const express = require('express');
+const configureExpress = require('./config/express');
 
-const app = express();
-
-app.use('/', (req, res) => {
-  res.status(200).send('Hello World');
-});
-
+const app = configureExpress();
 app.listen(3000);
-console.log('Server running at http://localhost:3000/');
-
 module.exports = app;
+
+console.log('Server running at http://localhost:3000/');
