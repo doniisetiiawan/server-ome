@@ -5,6 +5,7 @@ module.exports = () => {
   const db = mongoose.connect(config.db, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
     useFindAndModify: false,
   });
   // eslint-disable-next-line global-require
