@@ -85,6 +85,12 @@ UserSchema.methods.authenticate = function (password) {
   return this.password === password;
 };
 
+UserSchema.post('save', function () {
+  console.log(
+    `The user "${this.username}" details were saved.`,
+  );
+});
+
 UserSchema.set('toJSON', { getters: true, virtuals: true });
 
 mongoose.model('User', UserSchema);
