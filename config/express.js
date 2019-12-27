@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const express = require('express');
 const morgan = require('morgan');
 const compress = require('compression');
@@ -32,8 +33,8 @@ module.exports = () => {
     }),
   );
 
-  // eslint-disable-next-line global-require
   require('../app/routes/index.server.routes.js')(app);
+  require('../app/routes/users.server.routes.js')(app);
 
   app.use(express.static('./public'));
 
