@@ -3,6 +3,8 @@ const morgan = require('morgan');
 const compress = require('compression');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const session = require('express-session');
+const config = require('./config');
 
 module.exports = () => {
   const app = express();
@@ -21,6 +23,14 @@ module.exports = () => {
 
   app.use(bodyParser.json());
   app.use(methodOverride());
+
+  app.use(
+    session({
+      saveUninitialized: true,
+      resave: true,
+      secret: config.sessionSecret,
+    }),
+  );
 
   // eslint-disable-next-line global-require
   require('../app/routes/index.server.routes.js')(app);
