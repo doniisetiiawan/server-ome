@@ -1,6 +1,9 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
+const configureMongoose = require('./config/mongoose');
 const configureExpress = require('./config/express');
+
+configureMongoose();
 
 const app = configureExpress();
 app.listen(3000);
