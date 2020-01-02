@@ -1,4 +1,6 @@
+/* eslint-disable func-names */
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 
 const { Schema } = mongoose;
 
@@ -8,13 +10,16 @@ const UserSchema = new Schema({
   email: {
     type: String,
     index: true,
-    match: /.+@.+\..+/,
+    match: [
+      /.+@.+\..+/,
+      'Please fill a valid e-mail address',
+    ],
   },
   username: {
     type: String,
-    trim: true,
     unique: true,
-    required: true,
+    required: 'Username is required',
+    trim: true,
   },
   password: {
     type: String,
@@ -23,6 +28,15 @@ const UserSchema = new Schema({
       'Password Should Be Longer',
     ],
   },
+  salt: {
+    type: String,
+  },
+  provider: {
+    type: String,
+    required: 'Provider is required',
+  },
+  providerId: String,
+  providerData: {},
   website: {
     type: String,
     set(url) {
@@ -71,6 +85,31 @@ UserSchema.virtual('fullName')
     this.lastName = splitName[1] || '';
   });
 
+UserSchema.pre('save', function (next) {
+  if (this.password) {
+    this.salt = Buffer.from(
+      crypto.randomBytes(16).toString('base64'),
+      'base64',
+    );
+    this.password = this.hashPassword(this.password);
+  }
+  next();
+});
+
+UserSchema.methods.hashPassword = function (password) {
+  return crypto.pbkdf2Sync(
+    password,
+    this.salt,
+    10000,
+    64,
+    'base64',
+  );
+};
+
+UserSchema.methods.authenticate = function (password) {
+  return this.password === this.hashPassword(password);
+};
+
 UserSchema.statics.findOneByUsername = function (
   username,
   callback,
@@ -81,8 +120,30 @@ UserSchema.statics.findOneByUsername = function (
   );
 };
 
-UserSchema.methods.authenticate = function (password) {
-  return this.password === password;
+UserSchema.statics.findUniqueUsername = function (
+  username,
+  suffix,
+  callback,
+) {
+  const possibleUsername = username + (suffix || '');
+  this.findOne(
+    { username: possibleUsername },
+    (err, user) => {
+      if (!err) {
+        if (!user) {
+          callback(possibleUsername);
+        } else {
+          return this.findUniqueUsername(
+            username,
+            (suffix || 0) + 1,
+            callback,
+          );
+        }
+      } else {
+        callback(null);
+      }
+    },
+  );
 };
 
 UserSchema.post('save', function () {

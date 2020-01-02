@@ -1,6 +1,23 @@
+const passport = require('passport');
 const users = require('../../app/controllers/users.server.controller');
 
 module.exports = (app) => {
+  app
+    .route('/signup')
+    .post(users.signup);
+
+  app
+    .route('/signin')
+    .post(
+      passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/signin',
+        failureFlash: true,
+      }),
+    );
+
+  app.get('/signout', users.signout);
+
   app
     .route('/users')
     .post(users.create)
