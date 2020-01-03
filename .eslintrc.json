@@ -16,6 +16,7 @@
     "no-console": "off",
     "consistent-return": "off",
     "no-param-reassign": "off",
-    "no-shadow": "warn"
+    "no-shadow": "warn",
+    "no-underscore-dangle": "off"
   }
 }

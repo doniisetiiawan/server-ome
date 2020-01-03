@@ -40,6 +40,38 @@ exports.signup = (req, res, next) => {
   }
 };
 
+exports.saveOAuthUserProfile = (req, profile, done) => {
+  User.findOne(
+    {
+      provider: profile.provider,
+      providerId: profile.providerId,
+    },
+    (err, user) => {
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        const possibleUsername = profile.username
+          || (profile.email
+            ? profile.email.split('@')[0]
+            : '');
+
+        User.findUniqueUsername(
+          possibleUsername,
+          null,
+          (availableUsername) => {
+            const newUser = new User(profile);
+            newUser.username = availableUsername;
+            newUser.save((err) => done(err, newUser));
+          },
+        );
+      } else {
+        return done(err, user);
+      }
+    },
+  );
+};
+
 exports.signout = (req, res) => {
   req.logout();
   res.redirect('/');

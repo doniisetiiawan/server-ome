@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const passport = require('passport');
 const mongoose = require('mongoose');
 
@@ -18,6 +19,6 @@ module.exports = () => {
     );
   });
 
-  // eslint-disable-next-line global-require
   require('./strategies/local.js')();
+  require('./strategies/facebook.js')();
 };
