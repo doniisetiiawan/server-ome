@@ -7,4 +7,10 @@ module.exports = {
     callbackURL:
       'http://localhost:3000/oauth/facebook/callback',
   },
+  twitter: {
+    clientID: 'c7eebRFNCTQF3d95X7Lc9g',
+    clientSecret: 'iX0ozcLGVZ5qtkwwUYt3DnKrBTF0jjPsCfx6JB9k3U',
+    callbackURL:
+      'http://localhost:3000/oauth/twitter/callback',
+  },
 };
