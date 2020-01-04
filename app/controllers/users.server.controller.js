@@ -77,6 +77,15 @@ exports.signout = (req, res) => {
   res.redirect('/');
 };
 
+exports.requiresLogin = (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).send({
+      message: 'User is not logged in',
+    });
+  }
+  next();
+};
+
 exports.create = (req, res, next) => {
   const user = new User(req.body);
 

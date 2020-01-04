@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const mongoose = require('mongoose');
 const config = require('./config');
 
@@ -8,7 +9,7 @@ module.exports = () => {
     useCreateIndex: true,
     useFindAndModify: false,
   });
-  // eslint-disable-next-line global-require
   require('../app/models/user.server.model');
+  require('../app/models/article.server.model');
   return db;
 };
