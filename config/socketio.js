@@ -2,6 +2,8 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const config = require('./config');
 
+const configureChat = require('../app/controllers/chat.server.controller');
+
 module.exports = (server, io, mongoStore) => {
   io.use((socket, next) => {
     cookieParser(config.sessionSecret)(
@@ -28,6 +30,6 @@ module.exports = (server, io, mongoStore) => {
     );
   });
   io.on('connection', (socket) => {
-    /* ... */
+    configureChat(io, socket);
   });
 };

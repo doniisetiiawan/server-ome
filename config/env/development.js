@@ -2,20 +2,20 @@ module.exports = {
   db: 'mongodb://localhost/mean-book',
   sessionSecret: 'developmentSessionSecret',
   facebook: {
-    clientID: 'Facebook Application ID',
-    clientSecret: 'Facebook Application Secret',
+    clientID: '197836114050020',
+    clientSecret: 'aeca2aa61f62b08ea08b1780cba491d4',
     callbackURL:
       'http://localhost:3000/oauth/facebook/callback',
   },
   twitter: {
-    clientID: 'Twitter Application ID',
-    clientSecret: 'Twitter Application Secret',
+    clientID: '08h4XzUCu8c3g5RfhSAuQjquP',
+    clientSecret: 'S8ZKzLkCPPy2bFHSjvMXnUqA6QMLQsRULwQ5eJ8u3mfbdovmED',
     callbackURL:
       'http://localhost:3000/oauth/twitter/callback',
   },
   google: {
-    clientID: 'Application Id',
-    clientSecret: 'Application Secret',
+    clientID: '842162122191-sdv3ue976kjcq9as2o4ki5pg39a6ct0o.apps.googleusercontent.com',
+    clientSecret: 'tc_k6kL9B9PmeCwy70wW3TLT',
     callbackURL:
       'http://localhost:3000/oauth/google/callback',
   },

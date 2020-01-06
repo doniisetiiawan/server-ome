@@ -13,7 +13,7 @@ const passport = require('passport');
 const config = require('./config');
 const configureSocket = require('./socketio');
 
-module.exports = (db) => {
+module.exports = () => {
   const app = express();
 
   const server = http.createServer(app);
@@ -35,7 +35,7 @@ module.exports = (db) => {
   app.use(methodOverride());
 
   const mongoStore = new MongoStore({
-    mongooseConnection: db.connection,
+    url: config.db,
   });
 
   app.use(
@@ -60,5 +60,5 @@ module.exports = (db) => {
 
   configureSocket(server, io, mongoStore);
 
-  return app;
+  return server;
 };
